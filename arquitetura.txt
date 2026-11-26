@@ -1,0 +1,72 @@
+ARQUITETURA DO PROJETO — STACKUP
+================================
+
+1. VISÃO GERAL
+--------------
+Aplicação frontend de página única (SPA) construída com React e TypeScript.
+O Vite fornece o servidor de desenvolvimento e gera os arquivos estáticos de
+produção. Não existe backend, API própria, banco de dados ou autenticação.
+
+2. CAMADAS E RESPONSABILIDADES
+------------------------------
+
+Documento e metadados — index.html
+  Define o idioma pt-BR, viewport, título, descrição, cor do tema e o elemento
+  #root onde a aplicação React é montada.
+
+Inicialização — src/main.tsx
+  Importa o componente App e os estilos globais e monta a aplicação dentro de
+  React.StrictMode.
+
+Interface e estado — src/App.tsx
+  Contém a página StackUp e os dados de apresentação: módulos da trilha e
+  perguntas frequentes. O estado local do React controla o nível da trilha,
+  o módulo selecionado e qual pergunta está aberta.
+
+  Principais áreas da página:
+    - Cabeçalho e navegação por âncoras.
+    - Apresentação do curso e indicadores.
+    - Mapa interativo dos módulos e painel de detalhes.
+    - Demonstração visual do projeto final.
+    - Etapas de aprendizagem, FAQ e chamada para inscrição.
+
+Estilos — src/index.css
+  Define fontes, variáveis de cor, estilos dos componentes, animações e
+  comportamento responsivo. Inclui ajustes para telas menores e preferência
+  do sistema por movimento reduzido.
+
+Configuração e build — vite.config.ts / package.json
+  O Vite configura os plugins de React e Tailwind CSS e plugins auxiliares
+  presentes no projeto. O comando de build gera os arquivos estáticos em dist/.
+
+3. FLUXO DE EXECUÇÃO
+--------------------
+1. O navegador carrega index.html.
+2. src/main.tsx monta <App /> no elemento #root.
+3. App renderiza os dados e as seções da página.
+4. Interações do usuário atualizam o estado local via useState e React
+   renderiza novamente as partes afetadas.
+5. src/index.css apresenta a interface em diferentes tamanhos de tela.
+
+4. INTERAÇÕES E LIMITES
+-----------------------
+- As abas alternam entre Fundamentos e Avançado.
+- Selecionar um módulo ou usar os controles anterior/próximo atualiza os
+  detalhes exibidos.
+- As perguntas do FAQ podem ser abertas e fechadas.
+- Navegação e chamadas principais apontam para seções da própria página.
+- A chamada de inscrição abre um link mailto; não há envio de formulário
+  para um servidor.
+- O estado não é salvo após recarregar ou fechar a página.
+
+5. DESENVOLVIMENTO E PUBLICAÇÃO
+-------------------------------
+Instalar dependências: npm install
+Desenvolver:            npm run dev
+Validar o build:        npm run build
+Pré-visualizar build:   npm run preview
+Formatar:               npm run format
+
+Dependências locais e artefatos de build são excluídos do Git por .gitignore.
+O resultado de produção é estático e pode ser hospedado em um serviço que
+publique arquivos HTML, CSS e JavaScript.
